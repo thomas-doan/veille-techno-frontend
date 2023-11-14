@@ -3,16 +3,9 @@
     <input type="text" [(ngModel)]="editCocktail.name" name="cocktailName" placeholder="Nom du Cocktail" required>
     <input type="text" [(ngModel)]="editCocktail.img" name="cocktailImg" placeholder="URL de l'image">
     <textarea [(ngModel)]="editCocktail.description" name="cocktailDescription" placeholder="Description"></textarea>
+    <select [(ngModel)]="editCocktail.state" name="cocktailState">
+      <option *ngFor="let state of (states$ | async)" [value]="state">{{ state }}</option>
+    </select>
     <button type="submit">Enregistrer Cocktail</button>
   </form>
-<div>
-  <ul>
-    <li *ngFor="let cocktail of cocktails">
-      Cocktail : {{ cocktail.name }}
-      <button (click)="startEdit(cocktail)">Modifier</button>
-      <button (click)="deleteCocktail(cocktail.id)">Supprimer</button>
-    </li>
-  </ul>
-</div>
-
 </div>

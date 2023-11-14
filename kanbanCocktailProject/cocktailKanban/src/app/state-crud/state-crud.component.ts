@@ -8,12 +8,8 @@ import {StateService} from "../_services/state.service";
 })
 export class StateCrudComponent {
   states: string[] = [];
-  editState: string = '';
-
-
   currentState: string = '';
   originalState: string = '';
-
 
   constructor(private stateService: StateService) {
     this.stateService.states$.subscribe(states => this.states = states);
@@ -27,38 +23,14 @@ export class StateCrudComponent {
       }
     });
   }
-
-/*  saveState() {
-    if (this.originalState) {
-      this.stateService.updateState(this.originalState, this.editState);
-    } else {
-      this.stateService.addState(this.editState);
-    }
-    this.resetEditState();
-  }
-
-  startEdit(state: string) {
-    this.editState = state;
-    this.originalState = state;
-  }
-
-  deleteState(state: string) {
-    this.stateService.deleteState(state);
-  }
-
-  resetEditState() {
-    this.editState = '';
-    this.originalState = '';
-  }*/
-
-
-  saveState(): void {
+  updateState(): void {
     if (this.currentState !== this.originalState) {
       this.stateService.updateState(this.originalState, this.currentState);
       //this.cancelEdit();
     }
     this.stateService.selectStateForEdit(null);
   }
+
 
   cancelEdit(): void {
     this.currentState = this.originalState;

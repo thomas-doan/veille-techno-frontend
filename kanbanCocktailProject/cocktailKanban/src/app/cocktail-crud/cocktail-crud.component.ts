@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { ICocktail } from '../_interfaces/ICocktail.interface';
 import { CocktailService } from '../_services/cocktail.service';
+import {StateService} from "../_services/state.service";
+import {Observable} from "rxjs";
 
 @Component({
   selector: 'app-cocktail-crud',
@@ -10,9 +12,11 @@ import { CocktailService } from '../_services/cocktail.service';
 export class CocktailCrudComponent {
   cocktails: ICocktail[] = [];
   editCocktail: ICocktail = { id: 0, name: '', img: '', description: '', state: '' };
+  states$: Observable<string[]>;
 
-  constructor(private cocktailService: CocktailService) {
+  constructor(private cocktailService: CocktailService, private stateService: StateService) {
     this.cocktailService.cocktails$.subscribe(cocktails => this.cocktails = cocktails);
+    this.states$ = this.stateService.states$;
   }
 
   ngOnInit(): void {

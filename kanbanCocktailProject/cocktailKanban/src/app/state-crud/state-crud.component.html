@@ -1,32 +1,15 @@
-<!--
-<div class="state-crud">
-  <form (submit)="saveState()">
-    <input class="inputForm" type="text" [(ngModel)]="editState" name="stateName" placeholder="Une nouvelle étape ?" required>
-    <button class="btn" type="submit">Nouvelle étape</button>
-  </form>
 
-
-
-<ul>
-    <li *ngFor="let state of states">
-      {{ state }} -
-      <button (click)="startEdit(state)">Modifier</button>
-      <button (click)="deleteState(state)">Supprimer</button>
-    </li>
-  </ul>
-</div>
--->
-<div >
+<!--<div >
     <input type="text" [(ngModel)]="currentState" placeholder="votre nouvelle étape">
     <button (click)="saveState()">enregistrer</button>
-</div>
+</div>-->
 
 
-<div >
-    <input type="text" [(ngModel)]="currentState">
-    <button (click)="saveState()">Modifier</button>
-    <button (click)="deleteState()">Supprimer</button>
-    <button (click)="cancelEdit()">Annuler</button>
+<div class="d-flex flex-justify-content-between gap-col m-10">
+    <input class="inputForm" type="text" [(ngModel)]="currentState">
+    <button class="btn" (click)="updateState()">Modifier</button>
+    <button class="btn"  (click)="deleteState()">Supprimer</button>
+    <button class="btn" (click)="cancelEdit()">Annuler</button>
 </div>
 
 

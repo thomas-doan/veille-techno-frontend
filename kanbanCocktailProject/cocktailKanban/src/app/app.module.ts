@@ -7,7 +7,7 @@ import { CocktailCrudComponent } from './cocktail-crud/cocktail-crud.component';
 import { StateCrudComponent } from './state-crud/state-crud.component';
 import { KanbanBoardComponent } from './kanban-board/kanban-board.component';
 import {FilterByStatePipe} from "./_pipes/filter-by-state.pipe";
-import {FormsModule} from "@angular/forms";
+import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 
 @NgModule({
   declarations: [
@@ -21,7 +21,8 @@ import {FormsModule} from "@angular/forms";
   imports: [
     BrowserModule,
     AppRoutingModule,
-    FormsModule
+    FormsModule,
+    ReactiveFormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

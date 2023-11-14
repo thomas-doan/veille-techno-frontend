@@ -7,5 +7,4 @@ import {ICocktail} from "./_interfaces/ICocktail.interface";
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  title = 'Cocktail Kanban Board S.O.L.I.D.';
 }

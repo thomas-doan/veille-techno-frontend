@@ -17,12 +17,14 @@ export class StateService {
     this.selectedStateSource.next(state);
   }
 
-  addState(state: string) {
-    const currentStates = this.statesSource.value;
-    if (!currentStates.includes(state)) {
-      this.statesSource.next([...currentStates, state]);
+  // create state method and check if state already exists
+    createState(state: string): void {
+        const states = this.statesSource.value;
+        if (states.indexOf(state) === -1) {
+        states.push(state);
+        this.statesSource.next(states);
+        }
     }
-  }
 
   updateState(oldState: string, newState: string) {
     const states = this.statesSource.value.map(state => state === oldState ? newState : state);
