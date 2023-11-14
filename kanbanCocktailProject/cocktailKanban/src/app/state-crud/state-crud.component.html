@@ -1,10 +1,12 @@
 <div class="state-crud">
   <form (submit)="saveState()">
-    <input type="text" [(ngModel)]="editState" name="stateName" placeholder="État" required>
-    <button type="submit">Enregistrer État</button>
+    <input class="inputForm" type="text" [(ngModel)]="editState" name="stateName" placeholder="Une nouvelle étape ?" required>
+    <button class="btn" type="submit">Nouvelle étape</button>
   </form>
 
-  <ul>
+
+
+<ul>
     <li *ngFor="let state of states">
       {{ state }} -
       <button (click)="startEdit(state)">Modifier</button>

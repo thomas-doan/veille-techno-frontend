@@ -13,6 +13,8 @@ import {ICocktail} from "../_interfaces/ICocktail.interface";
 export class KanbanBoardComponent implements OnInit {
   cocktails$: Observable<ICocktail[]>;
   states$: Observable<string[]>;
+  editingState: string | null = null;
+  editedStateValue: string = '';
   protected readonly HTMLSelectElement = HTMLSelectElement;
 
 
@@ -23,6 +25,25 @@ export class KanbanBoardComponent implements OnInit {
 
   ngOnInit() {
 
+  }
+
+  startEditState(state: string): void {
+    this.editingState = state;
+    this.editedStateValue = state;
+  }
+
+  applyEditState(oldState: string): void {
+    if (this.editedStateValue && oldState !== this.editedStateValue) {
+      this.stateService.updateState(oldState, this.editedStateValue);
+      this.cancelEditState();
+    }
+  }
+
+
+
+  cancelEditState(): void {
+    this.editingState = null;
+    this.editedStateValue = '';
   }
 
   deleteCocktail(id: number) {
