@@ -1,0 +1,18 @@
+<div class="kanban-board">
+  <div class="kanban-column" *ngFor="let state of (states$ | async)">
+    <h3>{{ state }}</h3>
+    <div class="cocktails">
+      <div class="cocktail-card" *ngFor="let cocktail of (cocktails$ | async) ?? [] | filterByState:state " (click)="selectCocktail(cocktail)">
+        <img [src]="cocktail.img" alt="{{ cocktail.name }}">
+        <h4>{{ cocktail.name }}</h4>
+        <p>{{ cocktail.description }}</p>
+
+        <select (change)="changeCocktailState(cocktail, $event.target)">
+          <option *ngFor="let state of (states$ | async)" [value]="state" [selected]="state === cocktail.state">{{ state }}</option>
+        </select>
+
+        <button (click)="deleteCocktail(cocktail.id)">Supprimer</button>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,14 @@
+<div class="state-crud">
+  <form (submit)="saveState()">
+    <input type="text" [(ngModel)]="editState" name="stateName" placeholder="État" required>
+    <button type="submit">Enregistrer État</button>
+  </form>
+
+  <ul>
+    <li *ngFor="let state of states">
+      {{ state }} -
+      <button (click)="startEdit(state)">Modifier</button>
+      <button (click)="deleteState(state)">Supprimer</button>
+    </li>
+  </ul>
+</div>
