@@ -26,10 +26,21 @@ export class StateService {
         }
     }
 
-  updateState(oldState: string, newState: string) {
-    const states = this.statesSource.value.map(state => state === oldState ? newState : state);
-    this.statesSource.next(states);
+  updateState(oldState: string, newState: string): boolean {
+    if (!newState.trim()) {
+      return false;
+    }
+
+    const states = this.statesSource.value;
+    if (states.includes(newState)) {
+      return false;
+    }
+
+    const updatedStates = states.map(state => state === oldState ? newState : state);
+    this.statesSource.next(updatedStates);
     this.cocktailService.updateCocktailState(oldState, newState);
+
+    return true;
   }
 
   deleteState(state: string) {

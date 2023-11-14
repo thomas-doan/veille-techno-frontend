@@ -10,6 +10,7 @@ export class StateCrudComponent {
   states: string[] = [];
   currentState: string = '';
   originalState: string = '';
+  errorMessage: string = '';
 
   constructor(private stateService: StateService) {
     this.stateService.states$.subscribe(states => this.states = states);
@@ -24,16 +25,20 @@ export class StateCrudComponent {
     });
   }
   updateState(): void {
-    if (this.currentState !== this.originalState) {
-      this.stateService.updateState(this.originalState, this.currentState);
-      //this.cancelEdit();
+    if (this.stateService.updateState(this.originalState, this.currentState)) {
+      this.cancelEdit();
+      this.errorMessage = '';
+    } else {
+      this.errorMessage = this.currentState.trim()
+          ? 'L’étape est déjà créée'
+          : 'Le champ doit être complété';
     }
-    this.stateService.selectStateForEdit(null);
   }
 
 
   cancelEdit(): void {
     this.currentState = this.originalState;
+    this.errorMessage = '';
     this.stateService.selectStateForEdit(null);
   }
 

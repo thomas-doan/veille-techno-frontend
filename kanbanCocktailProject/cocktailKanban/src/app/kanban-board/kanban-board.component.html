@@ -16,6 +16,7 @@
                             <option *ngFor="let s of (states$ | async)" [value]="s" [selected]="s === cocktail.state">{{ s }}</option>
                         </select>
                         <button class="btn" (click)="startEdit(cocktail)"> Modifier </button>
+                        <button class="btn" (click)="deleteCocktail(cocktail.id)"> Supprimer </button>
                     </div>
 
                 </div>
