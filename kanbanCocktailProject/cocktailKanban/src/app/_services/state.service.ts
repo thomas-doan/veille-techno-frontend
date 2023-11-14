@@ -8,7 +8,14 @@ export class StateService {
   private statesSource = new BehaviorSubject<string[]>(['todo', 'progress', 'done']);
   states$ = this.statesSource.asObservable();
 
+  private selectedStateSource = new BehaviorSubject<string | null>(null);
+  selectedState$ = this.selectedStateSource.asObservable();
+
   constructor(private cocktailService: CocktailService) {}
+
+  selectStateForEdit(state: string | null): void {
+    this.selectedStateSource.next(state);
+  }
 
   addState(state: string) {
     const currentStates = this.statesSource.value;

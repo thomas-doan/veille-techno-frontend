@@ -1,6 +1,6 @@
 <div class="kanban-board">
   <div class="kanban-column" *ngFor="let state of (states$ | async)">
-    <div *ngIf="editingState === state; else viewState" class="d-flex gap-flex flex-justify-content-between p-10">
+<!--    <div *ngIf="editingState === state; else viewState" class="d-flex gap-flex flex-justify-content-between p-10">
       <input class="inputForm" type="text" [(ngModel)]="editedStateValue">
       <button class="btn" (click)="applyEditState(state)">Save</button>
       <button class="btn" (click)="cancelEditState()">Cancel</button>
@@ -10,7 +10,9 @@
         <h3 class="showCursorCouldModify" (click)="startEditState(state)">{{ state }}</h3>
         <button class= "btn" (click)="deleteState(state)">Delete State</button>
       </div>
-    </ng-template>
+    </ng-template>-->
+    <h3 (click)="editState(state)">{{ state }}</h3>
+    <app-state-crud *ngIf="editingState === state"></app-state-crud>
     <div class="cocktails">
       <div class="cocktail-card" *ngFor="let cocktail of (cocktails$ | async) ?? [] | filterByState:state " (click)="selectCocktail(cocktail)">
         <img [src]="cocktail.img" alt="{{ cocktail.name }}">
