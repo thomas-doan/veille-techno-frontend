@@ -9,6 +9,9 @@ import { KanbanBoardComponent } from './kanban-board/kanban-board.component';
 import {FilterByStatePipe} from "./_pipes/filter-by-state.pipe";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import { StateAddComponent } from './state-add/state-add.component';
+import {COCKTAIL_SERVICE_TOKEN, STATE_SERVICE_TOKEN} from "./_tokens/injection-tokens";
+import {StateService} from "./_services/state.service";
+import {CocktailService} from "./_services/cocktail.service";
 
 @NgModule({
   declarations: [
@@ -27,7 +30,10 @@ import { StateAddComponent } from './state-add/state-add.component';
     FormsModule,
     ReactiveFormsModule
   ],
-  providers: [],
+  providers: [
+    { provide: COCKTAIL_SERVICE_TOKEN, useClass: CocktailService },
+    { provide: STATE_SERVICE_TOKEN, useClass: StateService }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
