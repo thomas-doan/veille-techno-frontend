@@ -1,9 +1,10 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, Inject, OnInit} from '@angular/core';
 import {StateService} from "../_services/state.service";
-import {CocktailService} from "../_services/cocktail.service";
 import {Observable, Subscription} from "rxjs";
 import {ICocktail} from "../_interfaces/ICocktail.interface";
 import {FormControl, FormGroup, Validators} from "@angular/forms";
+import {ICocktailService} from "../_interfaces/ICocktail.service";
+import {CocktailService} from "../_services/cocktail.service";
 
 
 @Component({
@@ -21,8 +22,8 @@ export class KanbanBoardComponent implements OnInit {
   isFormModified: boolean = false;
   editingCocktailId: number | null = null;
 
-  constructor(private cocktailService: CocktailService, public stateService: StateService) {
-    this.cocktails$ = this.cocktailService.cocktails$;
+  constructor(  private cocktailService: CocktailService, public stateService: StateService) {
+    this.cocktails$ = this.cocktailService.getCocktails();
     this.states$ = this.stateService.states$;
     this.stateSub = this.stateService.selectedState$.subscribe(state => {
       this.editingState = state;

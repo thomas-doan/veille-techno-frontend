@@ -9,9 +9,8 @@ import { KanbanBoardComponent } from './kanban-board/kanban-board.component';
 import {FilterByStatePipe} from "./_pipes/filter-by-state.pipe";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import { StateAddComponent } from './state-add/state-add.component';
-import {COCKTAIL_SERVICE_TOKEN, STATE_SERVICE_TOKEN} from "./_tokens/injection-tokens";
-import {StateService} from "./_services/state.service";
 import {CocktailService} from "./_services/cocktail.service";
+import {StateService} from "./_services/state.service";
 
 @NgModule({
   declarations: [
@@ -20,7 +19,7 @@ import {CocktailService} from "./_services/cocktail.service";
     CocktailCrudComponent,
     StateCrudComponent,
       StateAddComponent,
-    KanbanBoardComponent,
+       KanbanBoardComponent,
     FilterByStatePipe,
     StateAddComponent
   ],
@@ -31,8 +30,8 @@ import {CocktailService} from "./_services/cocktail.service";
     ReactiveFormsModule
   ],
   providers: [
-    { provide: COCKTAIL_SERVICE_TOKEN, useClass: CocktailService },
-    { provide: STATE_SERVICE_TOKEN, useClass: StateService }
+    CocktailService,
+    StateService
   ],
   bootstrap: [AppComponent]
 })
