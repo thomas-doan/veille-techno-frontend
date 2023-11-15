@@ -1,11 +1,20 @@
-<div class="cocktail-crud">
-  <form (submit)="saveCocktail()">
-    <input type="text" [(ngModel)]="editCocktail.name" name="cocktailName" placeholder="Nom du Cocktail" required>
-    <input type="text" [(ngModel)]="editCocktail.img" name="cocktailImg" placeholder="URL de l'image">
-    <textarea [(ngModel)]="editCocktail.description" name="cocktailDescription" placeholder="Description"></textarea>
-    <select [(ngModel)]="editCocktail.state" name="cocktailState">
-      <option *ngFor="let state of (states$ | async)" [value]="state">{{ state }}</option>
-    </select>
-    <button type="submit">Enregistrer Cocktail</button>
-  </form>
-</div>
+<form class="d-flex flex-column gap-row p-10" [formGroup]="editCocktailForm" (submit)="saveCocktail()">
+  <label class="label">Ajouter une nouvelle carte : </label>
+  <input class="inputForm" type="text" formControlName="name" placeholder="Nom du Cocktail">
+  <div  class="warningError"  *ngIf="editCocktailForm.get('name')?.invalid && editCocktailForm.get('name')?.touched">Remplir le champ</div>
+
+  <label class="label">Image :</label>
+  <input class="inputForm" type="text" formControlName="img" placeholder="URL de l'image">
+
+    <label class="label">Description :</label>
+  <textarea rows="10" cols="30" formControlName="description" placeholder="Description"></textarea>
+  <div class="warningError"  *ngIf="editCocktailForm.get('description')?.invalid && editCocktailForm.get('description')?.touched">Remplir le champ</div>
+
+    <label class="label">Etape :</label>
+  <select formControlName="state">
+    <option *ngFor="let state of (states$ | async)" [value]="state">{{ state }}</option>
+  </select>
+  <div class="warningError" *ngIf="editCocktailForm.get('state')?.invalid && editCocktailForm.get('state')?.touched">Remplir le champ</div>
+
+  <button class="btn" type="submit" [disabled]="!editCocktailForm.valid">Enregistrer Cocktail</button>
+</form>

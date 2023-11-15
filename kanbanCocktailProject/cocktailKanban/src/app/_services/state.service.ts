@@ -17,14 +17,15 @@ export class StateService {
     this.selectedStateSource.next(state);
   }
 
-  // create state method and check if state already exists
-    createState(state: string): void {
-        const states = this.statesSource.value;
-        if (states.indexOf(state) === -1) {
-        states.push(state);
-        this.statesSource.next(states);
-        }
+  addState(newState: string): boolean {
+    const currentStates = this.statesSource.value;
+    if (currentStates.includes(newState)) {
+      return false; // L'état existe déjà
+    } else {
+      this.statesSource.next([...currentStates, newState]);
+      return true; // L'état a été ajouté
     }
+  }
 
   updateState(oldState: string, newState: string): boolean {
     if (!newState.trim()) {

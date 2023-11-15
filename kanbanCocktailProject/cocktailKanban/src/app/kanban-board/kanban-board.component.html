@@ -1,7 +1,7 @@
 <div class="kanban-board">
     <!-- Boucle sur les états -->
     <div class="kanban-column" *ngFor="let state of (states$ | async)">
-        <h3 (click)="editState(state)">{{ state }}</h3>
+        <h3  class="showCursorCouldModify" (click)="editState(state)">{{ state }}</h3>
         <app-state-crud *ngIf="editingState === state"></app-state-crud>
 
         <div class="cocktails">

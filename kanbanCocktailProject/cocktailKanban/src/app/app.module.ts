@@ -8,6 +8,7 @@ import { StateCrudComponent } from './state-crud/state-crud.component';
 import { KanbanBoardComponent } from './kanban-board/kanban-board.component';
 import {FilterByStatePipe} from "./_pipes/filter-by-state.pipe";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
+import { StateAddComponent } from './state-add/state-add.component';
 
 @NgModule({
   declarations: [
@@ -15,8 +16,10 @@ import {FormsModule, ReactiveFormsModule} from "@angular/forms";
     HeaderComponent,
     CocktailCrudComponent,
     StateCrudComponent,
+      StateAddComponent,
     KanbanBoardComponent,
-    FilterByStatePipe
+    FilterByStatePipe,
+    StateAddComponent
   ],
   imports: [
     BrowserModule,
