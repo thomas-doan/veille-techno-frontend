@@ -8,7 +8,7 @@
             <div *ngFor="let cocktail of (cocktails$ | async) ?? [] | filterByState:state">
 
                 <div class="cocktail-card" (click)="selectCocktail(cocktail)">
-                    <img [src]="cocktail.img" alt="{{ cocktail.name }}">
+                    <img [src]="cocktail.img" alt="{{ cocktail.img }}">
                     <h4>{{ cocktail.name }}</h4>
                     <p>{{ cocktail.description }}</p>
                     <div class="d-flex flex-justify-content-between gap-col p-10">

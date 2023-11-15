@@ -1,10 +1,11 @@
 // state.service.ts
 import { Injectable } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
+import {BehaviorSubject, Observable} from 'rxjs';
 import { CocktailService } from './cocktail.service';
+import {IStateService} from "../_interfaces/IState.service";
 
 @Injectable({ providedIn: 'root' })
-export class StateService {
+export class StateService implements IStateService {
   private statesSource = new BehaviorSubject<string[]>(['todo', 'progress', 'done']);
   states$ = this.statesSource.asObservable();
 
@@ -15,6 +16,14 @@ export class StateService {
 
   selectStateForEdit(state: string | null): void {
     this.selectedStateSource.next(state);
+  }
+
+  getStates(): Observable<string[]> {
+    return this.statesSource.asObservable();
+  }
+
+  getSelectedState(): Observable<string | null> {
+    return this.selectedStateSource.asObservable();
   }
 
   addState(newState: string): boolean {

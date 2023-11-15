@@ -1,10 +1,11 @@
 // cocktail.service.ts
 import { Injectable } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
+import {BehaviorSubject, Observable} from 'rxjs';
 import { ICocktail } from '../_interfaces/ICocktail.interface';
+import {ICocktailService} from "../_interfaces/ICocktail.service";
 
 @Injectable({ providedIn: 'root' })
-export class CocktailService {
+export class CocktailService implements ICocktailService {
   private initialCocktails: ICocktail[] = [
     {
       id : 1,
@@ -43,8 +44,8 @@ export class CocktailService {
   selectedCocktail$ = this.selectedCocktailSource.asObservable();
 
 
-  selectCocktail(cocktail: ICocktail): void {
-    this.selectedCocktailSource.next(cocktail);
+  getCocktails(): Observable<ICocktail[]> {
+    return this.cocktailsSource.asObservable();
   }
 
   addCocktail(cocktail: ICocktail) {
