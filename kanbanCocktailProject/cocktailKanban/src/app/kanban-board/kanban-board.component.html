@@ -1,7 +1,7 @@
 <div class="kanban-board">
     <!-- Boucle sur les états -->
     <div class="kanban-column" *ngFor="let state of (states$ | async)">
-        <h3  class="showCursorCouldModify" (click)="editState(state)">{{ state }}</h3>
+        <h3  class="showCursorCouldModify" (click)="editState(state)">Etape : {{ state }}</h3>
         <app-state-crud *ngIf="editingState === state"></app-state-crud>
 
         <div class="cocktails">
@@ -10,7 +10,10 @@
                 <div class="cocktail-card" (click)="selectCocktail(cocktail)">
                     <img [src]="cocktail.img" alt="{{ cocktail.img }}">
                     <h4>{{ cocktail.name }}</h4>
-                    <p>{{ cocktail.description }}</p>
+                  <div class="description">
+                    <textarea rows="5" cols="42">{{ cocktail.description }}</textarea>
+                  </div>
+
                     <div class="d-flex flex-justify-content-between gap-col p-10">
                         <select class="cocktail-card" (change)="changeCocktailState(cocktail, $event.target)">
                             <option *ngFor="let s of (states$ | async)" [value]="s" [selected]="s === cocktail.state">{{ s }}</option>
@@ -23,9 +26,11 @@
 
                 <div class="cocktail-card" *ngIf="isEditing(cocktail)">
                     <form [formGroup]="editCocktailForm" class="d-flex flex-column gap-row">
-                        <label> </label>
+                        <label>Nom : </label>
                         <input class="inputForm" type="text" formControlName="name" placeholder="Nom du Cocktail">
+                        <label>URL de l'image : </label>
                         <input  class="inputForm" type="text" formControlName="img" placeholder="URL de l'image">
+                        <label>Description : </label>
                         <textarea formControlName="description" placeholder="Description"></textarea>
 
                         <button class="btn" *ngIf="isFormModified" (click)="saveCocktailChanges()" [disabled]="!editCocktailForm.valid">Sauvegarder</button>

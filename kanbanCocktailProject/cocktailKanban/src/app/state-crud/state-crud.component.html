@@ -2,7 +2,7 @@
 <div *ngIf="errorMessage" class="warningError">{{ errorMessage }}</div>
 <div class="d-flex flex-justify-content-between gap-col m-10">
     <input class="inputForm" type="text" [(ngModel)]="currentState">
-    <button class="btn" (click)="updateState()">Modifier</button>
-    <button class="btn"  (click)="deleteState()">Supprimer</button>
-    <button class="btn" (click)="cancelEdit()">Annuler</button>
+    <button class="btn" (click)="updateState()">V</button>
+    <button class="btn"  (click)="deleteState()">X</button>
+    <button class="btn" (click)="cancelEdit()">Retour</button>
 </div>

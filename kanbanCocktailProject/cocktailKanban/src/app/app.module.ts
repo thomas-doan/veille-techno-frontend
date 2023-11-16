@@ -10,7 +10,7 @@ import {FilterByStatePipe} from "./_pipes/filter-by-state.pipe";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import { StateAddComponent } from './state-add/state-add.component';
 import {CocktailService} from "./_services/cocktail.service";
-import {StateService} from "./_services/state.service";
+import {StateManagementService} from "./_services/stateManagement.service";
 
 @NgModule({
   declarations: [
@@ -30,8 +30,6 @@ import {StateService} from "./_services/state.service";
     ReactiveFormsModule
   ],
   providers: [
-    CocktailService,
-    StateService
   ],
   bootstrap: [AppComponent]
 })

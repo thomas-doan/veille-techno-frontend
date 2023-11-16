@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
-import {StateService} from "../_services/state.service";
+import {StateManagementService} from "../_services/stateManagement.service";
+import {StateSelectionService} from "../_services/stateSelection.service";
 
 @Component({
   selector: 'app-state-crud',
@@ -12,9 +13,9 @@ export class StateCrudComponent {
   originalState: string = '';
   errorMessage: string = '';
 
-  constructor(private stateService: StateService) {
-    this.stateService.states$.subscribe(states => this.states = states);
-    this.stateService.selectedState$.subscribe(state => {
+  constructor(private stateManagementService: StateManagementService, private stateSelectionService: StateSelectionService) {
+    this.stateManagementService.states$.subscribe(states => this.states = states);
+    this.stateManagementService.selectedState$.subscribe(state => {
       if (state) {
         this.currentState = state;
         this.originalState = state;
@@ -25,7 +26,7 @@ export class StateCrudComponent {
     });
   }
   updateState(): void {
-    if (this.stateService.updateState(this.originalState, this.currentState)) {
+    if (this.stateManagementService.updateState(this.originalState, this.currentState)) {
       this.cancelEdit();
       this.errorMessage = '';
     } else {
@@ -39,11 +40,11 @@ export class StateCrudComponent {
   cancelEdit(): void {
     this.currentState = this.originalState;
     this.errorMessage = '';
-    this.stateService.selectStateForEdit(null);
+    this.stateSelectionService.selectStateForEdit(null);
   }
 
   deleteState() {
-    this.stateService.deleteState(this.originalState);
+    this.stateManagementService.deleteState(this.originalState);
     this.cancelEdit();
   }
 }

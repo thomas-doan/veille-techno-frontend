@@ -1,10 +1,11 @@
 import {Component, Inject, OnInit} from '@angular/core';
-import {StateService} from "../_services/state.service";
+import {StateManagementService} from "../_services/stateManagement.service";
 import {Observable, Subscription} from "rxjs";
 import {ICocktail} from "../_interfaces/ICocktail.interface";
 import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {ICocktailService} from "../_interfaces/ICocktail.service";
 import {CocktailService} from "../_services/cocktail.service";
+import {StateSelectionService} from "../_services/stateSelection.service";
 
 
 @Component({
@@ -22,10 +23,10 @@ export class KanbanBoardComponent implements OnInit {
   isFormModified: boolean = false;
   editingCocktailId: number | null = null;
 
-  constructor(  private cocktailService: CocktailService, public stateService: StateService) {
+  constructor(private cocktailService: CocktailService, public stateManagementService: StateManagementService, public stateSelectionService: StateSelectionService) {
     this.cocktails$ = this.cocktailService.getCocktails();
-    this.states$ = this.stateService.states$;
-    this.stateSub = this.stateService.selectedState$.subscribe(state => {
+    this.states$ = this.stateManagementService.states$;
+    this.stateSub = this.stateManagementService.selectedState$.subscribe(state => {
       this.editingState = state;
     });
     this.editCocktailForm = new FormGroup({
@@ -43,8 +44,9 @@ export class KanbanBoardComponent implements OnInit {
   }
 
   editState(state: string): void {
+    console.log('editState', state);
     this.editingState = state;
-    this.stateService.selectStateForEdit(state);
+    this.stateSelectionService.selectStateForEdit(state);
   }
 
   startEdit(cocktail: ICocktail): void {
@@ -91,10 +93,23 @@ export class KanbanBoardComponent implements OnInit {
   deleteCocktail(id: number) {
     this.cocktailService.deleteCocktail(id);
   }
+  private isCocktailStateChangeValid(selectElement: HTMLSelectElement, cocktail: ICocktail): boolean | string{
+    const isSelectElementValid = selectElement && selectElement.value;
+    const hasCocktailStateChanged = cocktail.state !== selectElement.value;
+    return isSelectElementValid && hasCocktailStateChanged;
+  }
+/*  changeCocktailState(cocktail: ICocktail, newState: EventTarget | null): void {
+    const selectElement = newState as HTMLSelectElement;
+    if (selectElement && selectElement.value && cocktail.state !== selectElement.value) {
+      const updatedCocktail = { ...cocktail, state: selectElement.value };
+      this.cocktailService.updateCocktail(updatedCocktail);
+    }
+  }*/
 
   changeCocktailState(cocktail: ICocktail, newState: EventTarget | null): void {
     const selectElement = newState as HTMLSelectElement;
-    if (selectElement && selectElement.value && cocktail.state !== selectElement.value) {
+
+    if (this.isCocktailStateChangeValid(selectElement, cocktail)) {
       const updatedCocktail = { ...cocktail, state: selectElement.value };
       this.cocktailService.updateCocktail(updatedCocktail);
     }

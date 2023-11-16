@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { StateService } from '../_services/state.service';
+import { StateManagementService } from '../_services/stateManagement.service';
 
 @Component({
   selector: 'app-state-add',
@@ -9,7 +9,7 @@ export class StateAddComponent {
   newState: string = '';
   errorMessage: string = '';
 
-  constructor(private stateService: StateService) {}
+  constructor(private stateService: StateManagementService) {}
 
   addState(): void {
     if (!this.newState.trim()) {

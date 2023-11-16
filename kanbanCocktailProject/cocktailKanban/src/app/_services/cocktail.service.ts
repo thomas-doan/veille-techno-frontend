@@ -1,9 +1,8 @@
-// cocktail.service.ts
 import { Injectable } from '@angular/core';
-import {BehaviorSubject, Observable} from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { ICocktail } from '../_interfaces/ICocktail.interface';
+import {StateManagementService} from "./stateManagement.service";
 import {ICocktailService} from "../_interfaces/ICocktail.service";
-
 @Injectable({ providedIn: 'root' })
 export class CocktailService implements ICocktailService {
   private initialCocktails: ICocktail[] = [
@@ -37,35 +36,39 @@ export class CocktailService implements ICocktailService {
     }
   ];
 
+
   private cocktailsSource = new BehaviorSubject<ICocktail[]>(this.initialCocktails);
   private selectedCocktailSource = new BehaviorSubject<ICocktail | null>(null);
-
   cocktails$ = this.cocktailsSource.asObservable();
   selectedCocktail$ = this.selectedCocktailSource.asObservable();
 
-
+  constructor(private stateManagementService: StateManagementService) {
+    this.stateManagementService.stateChange$.subscribe(({ oldState, newState }) => {
+      this.updateCocktailsState(oldState, newState);
+    });
+  }
   getCocktails(): Observable<ICocktail[]> {
     return this.cocktailsSource.asObservable();
   }
 
-  addCocktail(cocktail: ICocktail) {
+  addCocktail(cocktail: ICocktail): void {
     const currentCocktails = this.cocktailsSource.value;
     this.cocktailsSource.next([...currentCocktails, cocktail]);
   }
 
-  updateCocktail(updatedCocktail: ICocktail) {
+  updateCocktail(updatedCocktail: ICocktail): void {
     const cocktails = this.cocktailsSource.value.map(cocktail =>
-      cocktail.id === updatedCocktail.id ? updatedCocktail : cocktail
-    );
+      cocktail.id === updatedCocktail.id ? updatedCocktail : cocktail);
     this.cocktailsSource.next(cocktails);
   }
 
-  deleteCocktail(id: number) {
+  deleteCocktail(id: number): void {
     const filteredCocktails = this.cocktailsSource.value.filter(cocktail => cocktail.id !== id);
     this.cocktailsSource.next(filteredCocktails);
   }
 
-  updateCocktailState(oldState: string, newState: string) {
+
+   updateCocktailsState(oldState: string, newState: string): void {
     const updatedCocktails = this.cocktailsSource.value.map(cocktail => {
       if (cocktail.state === oldState) {
         return { ...cocktail, state: newState };
@@ -74,9 +77,5 @@ export class CocktailService implements ICocktailService {
     });
     this.cocktailsSource.next(updatedCocktails);
   }
-
-  deleteCocktailsByState(state: string) {
-    const filteredCocktails = this.cocktailsSource.value.filter(cocktail => cocktail.state !== state);
-    this.cocktailsSource.next(filteredCocktails);
-  }
 }
+

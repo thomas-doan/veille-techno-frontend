@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import { ICocktail } from '../_interfaces/ICocktail.interface';
 import { CocktailService } from '../_services/cocktail.service';
-import {StateService} from "../_services/state.service";
+import {StateManagementService} from "../_services/stateManagement.service";
 import {Observable} from "rxjs";
 import {FormControl, FormGroup, Validators} from "@angular/forms";
 
@@ -17,9 +17,9 @@ export class CocktailCrudComponent implements OnInit{
   states$: Observable<string[]>;
   errorMessage: string = '';
 
-  constructor(private cocktailService: CocktailService, private stateService: StateService) {
+  constructor(private cocktailService: CocktailService, private stateManagement: StateManagementService) {
     this.cocktailService.cocktails$.subscribe(cocktails => this.cocktails = cocktails);
-    this.states$ = this.stateService.states$;
+    this.states$ = this.stateManagement.states$;
 
   }
 
