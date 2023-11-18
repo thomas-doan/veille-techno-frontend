@@ -1,8 +1,15 @@
 <div class="d-flex flex-column flex-justify-content-between p-10 gap-row">
+  <form [formGroup]="stateForm" (ngSubmit)="addState()">
     <label class="label">Ajouter une nouvelle étape :</label>
     <div class="d-flex flex-justify-content-between gap-col">
-        <input class="inputForm wd-8" type="text" [(ngModel)]="newState" placeholder="Votre étape ?">
-        <button class="btn" (click)="addState()">Ajouter</button>
+      <input class="inputForm wd-8" type="text" formControlName="newState" placeholder="Votre étape ?">
+      <button class="btn" type="submit">Ajouter</button>
     </div>
-    <div *ngIf="errorMessage" class="warningError">{{ errorMessage }}</div>
+    <div *ngIf="newStateControl?.invalid && (newStateControl?.dirty || newStateControl?.touched)" class="warningError d-flex flex-column gap-row">
+      <span *ngIf="newStateControl?.errors?.['required']">Le champ doit être complété.</span>
+      <span *ngIf="newStateControl?.errors?.['trimValidator']">L'étape ne peut pas être vide.</span>
+    </div>
+
+
+  </form>
 </div>

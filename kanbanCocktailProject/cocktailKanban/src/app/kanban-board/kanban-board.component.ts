@@ -98,14 +98,6 @@ export class KanbanBoardComponent implements OnInit {
     const hasCocktailStateChanged = cocktail.state !== selectElement.value;
     return isSelectElementValid && hasCocktailStateChanged;
   }
-/*  changeCocktailState(cocktail: ICocktail, newState: EventTarget | null): void {
-    const selectElement = newState as HTMLSelectElement;
-    if (selectElement && selectElement.value && cocktail.state !== selectElement.value) {
-      const updatedCocktail = { ...cocktail, state: selectElement.value };
-      this.cocktailService.updateCocktail(updatedCocktail);
-    }
-  }*/
-
   changeCocktailState(cocktail: ICocktail, newState: EventTarget | null): void {
     const selectElement = newState as HTMLSelectElement;
 

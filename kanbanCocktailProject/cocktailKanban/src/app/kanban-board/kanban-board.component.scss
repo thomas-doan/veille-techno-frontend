@@ -6,7 +6,7 @@ background-color:  #f5f5f5;
   overflow: auto;
   white-space: nowrap;
   .kanban-column {
-
+    background-color: white;
     min-width: 400px;
 
     margin: 0 10px;
@@ -24,6 +24,7 @@ background-color:  #f5f5f5;
     .cocktails {
 
       width: 100%;
+
 
       .cocktail-card {
 

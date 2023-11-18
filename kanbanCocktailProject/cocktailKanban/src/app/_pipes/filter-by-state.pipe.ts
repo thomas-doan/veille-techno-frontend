@@ -1,4 +1,3 @@
-// filter-by-state.pipe.ts
 import { Pipe, PipeTransform } from '@angular/core';
 import { ICocktail } from "../_interfaces/ICocktail.interface";
 

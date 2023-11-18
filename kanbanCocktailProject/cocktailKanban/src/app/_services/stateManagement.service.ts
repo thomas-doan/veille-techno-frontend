@@ -42,7 +42,6 @@ export class StateManagementService {
       return true;
     }
 
-    console.log('updateState false', oldState, newState);
     return false;
   }
 
@@ -54,4 +53,5 @@ export class StateManagementService {
   setSelectedState(state: string | null): void {
     this.selectedStateSource.next(state);
   }
+
 }
